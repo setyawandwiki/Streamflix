@@ -13,6 +13,9 @@ const createOrder = async (req, res) => {
         $push: {
           movie: order._id,
         },
+        $inc: {
+          money: -order.price,
+        },
       },
       { new: true, runValidators: true }
     );
