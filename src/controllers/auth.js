@@ -67,7 +67,21 @@ const login = async (req, res) => {
   }
 };
 
+const verify = async (req, res, next) => {
+  const token = req.headers.authorization?.split(" ")[1];
+  if (!token) {
+    return wrapper.response(res, 401, "you are not authenticated", []);
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, data) => {
+    if (err) wrapper.response(res, 403, "token is not valid");
+    req.user = data;
+    next();
+  });
+};
+
 module.exports = {
   register,
   login,
+  verify,
 };
