@@ -4,22 +4,21 @@ const { isEmail } = require("validator");
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: ["Name is required", true],
+    required: [true, "Name is required"],
   },
   email: {
     type: String,
-    required: ["Email is required", true],
+    required: [true, "Email is required"],
     validate: [isEmail, "invalid email"],
+    unique: [true, "User already exist"],
   },
   password: {
     type: String,
-    required: ["Password is required", true],
-    minLength: ["Minimum character 2", true],
-    maxLength: ["Maximum character 10", true],
+    required: [true, "Name is required"],
   },
   movie: [
     {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Order",
     },
   ],
