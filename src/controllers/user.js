@@ -3,7 +3,7 @@ const wrapper = require("../utils/wrapper");
 
 const getUser = async (req, res) => {
   const { id } = req.params;
-  const user = await User.findById(id).populate("movie");
+  const user = await User.findById(id).populate("movie").select("-password");
   if (!user) {
     return wrapper.response(res, 404, "user not found", []);
   }

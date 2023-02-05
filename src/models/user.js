@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Name is required"],
   },
+  money: {
+    type: Number,
+    default: 10000,
+  },
   movie: [
     {
       type: mongoose.Schema.Types.ObjectId,

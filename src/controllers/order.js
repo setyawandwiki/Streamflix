@@ -6,9 +6,13 @@ const createOrder = async (req, res) => {
   try {
     const { name, price, owner } = req.body;
     const order = await Order.create({ name, price, owner });
-    await User.findOneAndUpdate(
+    const user = await User.findOneAndUpdate(
       { _id: owner },
-      { movie: order._id },
+      {
+        $push: {
+          movie: order._id,
+        },
+      },
       { new: true, runValidators: true }
     );
     return wrapper.response(res, 201, "success buy the movie", order);
