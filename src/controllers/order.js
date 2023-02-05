@@ -1,6 +1,7 @@
 const Order = require("../models/order");
 const User = require("../models/user");
 const wrapper = require("../utils/wrapper");
+const snapMidtrans = require("../utils/snapMidtrans");
 
 const createOrder = async (req, res) => {
   try {
@@ -15,8 +16,17 @@ const createOrder = async (req, res) => {
       },
       { new: true, runValidators: true }
     );
-    return wrapper.response(res, 201, "success buy the movie", order);
+    const { _id } = order;
+    const redirectUrl = await snapMidtrans.post({
+      _id,
+      price,
+    });
+    return wrapper.response(res, 201, "success buy the movie", {
+      order,
+      redirectUrl,
+    });
   } catch (error) {
+    console.log(error);
     return wrapper.response(res, 500, error.message, error);
   }
 };
