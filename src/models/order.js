@@ -12,7 +12,7 @@ const orderSchema = new mongoose.Schema({
     default: "Success",
   },
   owner: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
 });
