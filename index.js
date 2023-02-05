@@ -2,6 +2,7 @@ const app = require("./app");
 const mongoose = require("mongoose");
 
 mongoose.set("strictQuery", false);
+mongoose.set("strictPopulate", false);
 
 mongoose
   .connect(process.env.MONGO_URL)
