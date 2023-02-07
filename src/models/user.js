@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
   },
   money: {
     type: Number,
-    default: 10000,
+    default: 100000,
   },
   movie: [
     {
